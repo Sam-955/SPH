@@ -1,32 +1,31 @@
 <template>
-  <div id="app">
-    <nav>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </nav>
-    <router-view/>
+  <div class="">
+    <Header></Header>
+    <!-- 路由组件出口 -->
+    <router-view></router-view>
+    <!-- 在Home 、search显示，在login、register隐藏，可以通过$route 来获取当前路由上的属性信息，meta、path、query param等参数 -->
+    <!-- <Footer></Footer> -->
+    <Footer v-show="$route.meta.show"></Footer>
   </div>
 </template>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+import Header from "@/components/Header/index"
+import Footer from "@/components/Footer/index.vue"
 
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+export default {
+  name:"App",
+  components:{
+   Header,
+   Footer,
+  },
+  
+  mounted(){
+    this.$store.dispatch("categoryList");
+    // this.$store.dispatch("userInfo");
   }
 }
+</script>
+
+<style lang="less" scoped>
 </style>
